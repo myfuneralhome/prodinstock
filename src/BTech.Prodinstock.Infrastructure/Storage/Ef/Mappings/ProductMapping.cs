@@ -10,8 +10,6 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings
         {
             builder.HasKey(d => d.Id);
             builder.Property(d => d.Id).ValueGeneratedNever();
-
-            builder.Property(d => d.CreationDate).ValueGeneratedOnAdd();
         }
     }
 }

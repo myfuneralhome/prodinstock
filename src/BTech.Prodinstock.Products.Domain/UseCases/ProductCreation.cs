@@ -28,6 +28,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
             var product = new Product()
             {
                 Id = Guid.NewGuid().ToString(),
+                CreationDate = DateTime.UtcNow,
                 Description = newProduct.Description,
                 BuyingPrice = newProduct.BuyingPrice,
                 Name = newProduct.Name,

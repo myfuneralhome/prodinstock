@@ -1,3 +1,4 @@
+using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -10,14 +11,17 @@ namespace BTech.Prodinstock.WebApi.Controllers
     {
 
         private readonly ProductCreation _productCreation;
+        private readonly ListProducts _listProducts;
         private readonly ILogger<ProductsController> _logger;
 
         public ProductsController(
             ILogger<ProductsController> logger
-            , ProductCreation productCreation)
+            , ProductCreation productCreation
+            , ListProducts listProducts)
         {
             _logger = logger;
             _productCreation = productCreation;
+            _listProducts = listProducts;
         }
 
         [HttpPost]
@@ -40,6 +44,12 @@ namespace BTech.Prodinstock.WebApi.Controllers
             {
                 return BadRequest(commandResult.Errors);
             }
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<ExistingProduct>> List()
+        {
+            return await _listProducts.ExecuteAsync();
         }
     }
 

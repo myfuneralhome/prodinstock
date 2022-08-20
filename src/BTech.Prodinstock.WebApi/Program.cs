@@ -1,4 +1,5 @@
 using BTech.Prodinstock.Infrastructure.Storage.Ef;
+using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<ProductContext>(options =>
                 }), ServiceLifetime.Scoped, ServiceLifetime.Scoped);
 builder.Services.AddRepositories();
 builder.Services.TryAddScoped<ProductCreation>();
+builder.Services.TryAddScoped<ListProducts>();
 
 var app = builder.Build();
 
