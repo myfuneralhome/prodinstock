@@ -11,4 +11,4 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
-      - run: dotnet build src/BTech.Prodinstock.WebAPI/BTech.Prodinstock.WebAPI.csproj
+      - run: dotnet build src/BTech.Prodinstock.WebApi/BTech.Prodinstock.WebApi.csproj
