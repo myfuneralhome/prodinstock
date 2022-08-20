@@ -1,0 +1,14 @@
+name: .NET 6 CI
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: .NET 6 Application
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+      - run: dotnet build src/BTech.Prodinstock.WebAPI/BTech.Prodinstock.WebAPI.csproj
