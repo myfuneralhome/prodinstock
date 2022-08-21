@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace BTech.Prodinstock.Products.Domain
+namespace BTech.Prodinstock.Core
 {
     public interface IReadRepository<TEntity>
     {

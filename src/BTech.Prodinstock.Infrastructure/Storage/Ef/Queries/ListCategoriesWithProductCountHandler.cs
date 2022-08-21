@@ -1,4 +1,5 @@
-﻿using BTech.Prodinstock.Infrastructure.Storage.Ef;
+﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Infrastructure.Storage.Ef;
 using BTech.Prodinstock.Products.Domain.Entities;
 using BTech.Prodinstock.Products.Domain.Queries;
 using Microsoft.EntityFrameworkCore;

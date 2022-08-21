@@ -1,4 +1,5 @@
-﻿using BTech.Prodinstock.Products.Domain.Entities;
+﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Products.Domain.Entities;
 
 namespace BTech.Prodinstock.Products.Domain.Queries
 {

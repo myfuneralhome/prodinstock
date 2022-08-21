@@ -1,4 +1,4 @@
-﻿namespace BTech.Prodinstock.Products.Domain.Queries
+﻿namespace BTech.Prodinstock.Core
 {
     public interface IQuery<TResult> { }
 

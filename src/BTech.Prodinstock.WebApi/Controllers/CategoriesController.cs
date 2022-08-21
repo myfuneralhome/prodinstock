@@ -1,3 +1,4 @@
+using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.AspNetCore.Mvc;

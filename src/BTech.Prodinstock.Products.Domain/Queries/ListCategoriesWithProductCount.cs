@@ -1,4 +1,6 @@
-﻿namespace BTech.Prodinstock.Products.Domain.Queries
+﻿using BTech.Prodinstock.Core;
+
+namespace BTech.Prodinstock.Products.Domain.Queries
 {
     public sealed record ListCategoriesWithProductCount
         : IQuery<ExistingCategory[]>
