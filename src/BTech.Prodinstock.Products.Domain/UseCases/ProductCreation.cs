@@ -10,16 +10,19 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
         private readonly IWriteRepository<Product> _writeRepository;
         private readonly IReadRepository<Category> _categoryRepository;
         private readonly IReadRepository<Supplier> _supplierRepository;
+        private readonly IReadRepository<AccountingAccount> _accountingAccountRepository;
 
         public ProductCreation(
             IWriteRepository<Product> writeRepository,
             IReadRepository<Category> categoryRepository,
-            IReadRepository<Supplier> supplierRepository
+            IReadRepository<Supplier> supplierRepository,
+            IReadRepository<AccountingAccount> accountingAccountRepository
             )
         {
             _writeRepository = writeRepository;
             _categoryRepository = categoryRepository;
             _supplierRepository = supplierRepository;
+            _accountingAccountRepository = accountingAccountRepository;
         }
 
         public async Task<CommandResult> ExecuteAsync(NewProduct newProduct)
@@ -43,7 +46,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 SalePrice = newProduct.SalePrice,
                 VATRate = newProduct.VATRate,
                 CategoryId = newProduct.CategoryId,
-                SupplierId = newProduct.SupplierId
+                SupplierId = newProduct.SupplierId,
+                AccountingAccountId = newProduct.AccoutingAccountId
             };
 
             await _writeRepository.AddAsync(product);
@@ -81,10 +85,10 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 errors.Add("The category does not exist.");
             }
 
-            if (newProduct.SupplierId != null
-                && !(await _supplierRepository.AnyAsync(c => c.Id == newProduct.SupplierId)))
+            if (newProduct.AccoutingAccountId != null
+                && !(await _accountingAccountRepository.AnyAsync(c => c.Id == newProduct.AccoutingAccountId)))
             {
-                errors.Add("The category does not exist.");
+                errors.Add("The accounting account does not exist.");
             }
 
             return errors;
@@ -99,5 +103,6 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
         short NumberInStock,
         decimal SalePrice,
         decimal VATRate,
+        int? AccoutingAccountId,
         decimal BuyingPrice) { }
 }

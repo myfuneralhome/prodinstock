@@ -15,5 +15,6 @@
         public string? SupplierId { get; set; }
         public Category? Category { get; set; }
         public Supplier? Supplier { get; set; }
+        public int? AccountingAccountId { get; set; }
     }
 }
