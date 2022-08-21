@@ -18,12 +18,17 @@ namespace BTech.Prodinstock.Infrastructure.Queries
 
         async Task<ExistingCategory[]> IQueryHandler<ListCategoriesWithProductCount, ExistingCategory[]>.HandleAsync(ListCategoriesWithProductCount query)
         {
-            var categories = await _productContext.Set<Product>()
-                .GroupBy(p => p.CategoryId)
-                .Select(groupByCategory => new ExistingCategory { Id = groupByCategory.Key, NumberOfProducts = groupByCategory.Count() })
-                .ToArrayAsync();
+            var categories = await _productContext.Set<Category>()
+                .Select(c => new ExistingCategory() { Id = c.Id, Name = c.Name, NumberOfProducts = c.Products.Count })
+                .ToListAsync();
 
-            return categories;
+            int productWithoutCategoryCount = await _productContext.Set<Product>()
+                .Where(p => p.CategoryId == null)
+                .CountAsync();
+
+            categories.Add(new ExistingCategory() { Id = null, Name = "", NumberOfProducts = productWithoutCategoryCount });
+
+            return categories.ToArray();
         }
     }
 

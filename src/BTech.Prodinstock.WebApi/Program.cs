@@ -14,11 +14,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ProductContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("Product"), builder =>
-                {
-                    builder.EnableRetryOnFailure();
-                    builder.MigrationsHistoryTable("__EFMigrationsHistory", "product");
-                }), ServiceLifetime.Scoped, ServiceLifetime.Scoped);
+{
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Product"), builder =>
+    {
+        builder.EnableRetryOnFailure();
+        builder.MigrationsHistoryTable("__EFMigrationsHistory", "product");
+    });
+});
 builder.Services.AddRepositories();
 builder.Services.AddQueries();
 builder.Services.TryAddScoped<ProductCreation>();
