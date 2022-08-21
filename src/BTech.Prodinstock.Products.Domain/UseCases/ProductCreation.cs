@@ -9,14 +9,17 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
 
         private readonly IWriteRepository<Product> _writeRepository;
         private readonly IReadRepository<Category> _categoryRepository;
+        private readonly IReadRepository<Supplier> _supplierRepository;
 
         public ProductCreation(
             IWriteRepository<Product> writeRepository,
-            IReadRepository<Category> categoryRepository
+            IReadRepository<Category> categoryRepository,
+            IReadRepository<Supplier> supplierRepository
             )
         {
             _writeRepository = writeRepository;
             _categoryRepository = categoryRepository;
+            _supplierRepository = supplierRepository;
         }
 
         public async Task<CommandResult> ExecuteAsync(NewProduct newProduct)
@@ -39,7 +42,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 NumberInStock = newProduct.NumberInStock,
                 SalePrice = newProduct.SalePrice,
                 VATRate = newProduct.VATRate,
-                CategoryId = newProduct.CategoryId
+                CategoryId = newProduct.CategoryId,
+                SupplierId = newProduct.SupplierId
             };
 
             await _writeRepository.AddAsync(product);
@@ -77,11 +81,18 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 errors.Add("The category does not exist.");
             }
 
+            if (newProduct.SupplierId != null
+                && !(await _supplierRepository.AnyAsync(c => c.Id == newProduct.SupplierId)))
+            {
+                errors.Add("The category does not exist.");
+            }
+
             return errors;
         }
     }
 
     public sealed record NewProduct(
+        string? SupplierId,
         string? CategoryId,
         string Name,
         string Description,

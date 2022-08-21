@@ -1,6 +1,5 @@
 ﻿using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Infrastructure.Queries;
-using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -22,6 +21,7 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef
             services.TryAddScoped<ListProducts>();
             services.TryAddScoped(typeof(IQueryHandler<ListCategoriesWithProductCount, ExistingCategory[]>), typeof(ListCategoriesWithProductCountHandler));
             services.TryAddScoped(typeof(IQueryHandler<ListSuppliers, ExistingSupplier[]>), typeof(ListSuppliersHandler));
+            services.TryAddScoped(typeof(IQueryHandler<ListProducts, ExistingProduct[]>), typeof(ListProductsHandler));
 
             return services;
         }

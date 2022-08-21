@@ -1,3 +1,4 @@
+using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +12,13 @@ namespace BTech.Prodinstock.WebApi.Controllers
     {
 
         private readonly ProductCreation _productCreation;
-        private readonly ListProducts _listProducts;
+        private readonly IQueryHandler<ListProducts, ExistingProduct[]> _listProducts;
         private readonly ILogger<ProductsController> _logger;
 
         public ProductsController(
             ILogger<ProductsController> logger
             , ProductCreation productCreation
-            , ListProducts listProducts)
+            , IQueryHandler<ListProducts, ExistingProduct[]> listProducts)
         {
             _logger = logger;
             _productCreation = productCreation;
@@ -29,6 +30,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
             [Required] Product product)
         {
             var commandResult = await _productCreation.ExecuteAsync(new NewProduct(
+                product.SupplierId,
                 product.CategoryId,
                 product.Name,
                 product.Description,
@@ -50,7 +52,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<ExistingProduct>> List()
         {
-            return await _listProducts.ExecuteAsync();
+            return await _listProducts.HandleAsync(new ListProducts());
         }
     }
 
@@ -66,5 +68,6 @@ namespace BTech.Prodinstock.WebApi.Controllers
         public decimal VATRate { get; set; } = 0;
         public decimal BuyingPrice { get; set; } = 0;
         public string? CategoryId { get; set; }
+        public string? SupplierId { get; set; }
     }
 }
