@@ -1,4 +1,4 @@
-﻿namespace BTech.Prodinstock.Products.Domain
+﻿namespace BTech.Prodinstock.Core
 {
     public sealed class CommandResult
     {

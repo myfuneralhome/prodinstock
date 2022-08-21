@@ -1,4 +1,5 @@
-﻿using BTech.Prodinstock.Infrastructure.Queries;
+﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Infrastructure.Queries;
 using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.Queries;
 using Microsoft.Extensions.DependencyInjection;

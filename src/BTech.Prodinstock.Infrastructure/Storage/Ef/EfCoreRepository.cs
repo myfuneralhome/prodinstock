@@ -1,4 +1,5 @@
-﻿using BTech.Prodinstock.Products.Domain;
+﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Products.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

@@ -1,4 +1,5 @@
 ﻿
+using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Products.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
