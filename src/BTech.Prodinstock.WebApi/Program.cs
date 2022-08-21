@@ -20,7 +20,9 @@ builder.Services.AddDbContext<ProductContext>(options =>
                     builder.MigrationsHistoryTable("__EFMigrationsHistory", "product");
                 }), ServiceLifetime.Scoped, ServiceLifetime.Scoped);
 builder.Services.AddRepositories();
+builder.Services.AddQueries();
 builder.Services.TryAddScoped<ProductCreation>();
+builder.Services.TryAddScoped<CategoryCreation>();
 builder.Services.TryAddScoped<ListProducts>();
 
 var app = builder.Build();

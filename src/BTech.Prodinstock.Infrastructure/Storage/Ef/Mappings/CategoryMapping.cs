@@ -4,14 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings
 {
-    internal class ProductMapping : IEntityTypeConfiguration<Product>
+    internal class CategoryMapping : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(d => d.Id);
             builder.Property(d => d.Id).ValueGeneratedNever();
-
-            builder.HasOne<Category>().WithMany().HasForeignKey(c => c.CategoryId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
