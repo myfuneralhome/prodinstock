@@ -29,6 +29,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
             [Required] Product product)
         {
             var commandResult = await _productCreation.ExecuteAsync(new NewProduct(
+                product.CategoryId,
                 product.Name,
                 product.Description,
                 product.NumberInStock,
@@ -64,5 +65,6 @@ namespace BTech.Prodinstock.WebApi.Controllers
         public decimal SalePrice { get; set; }
         public decimal VATRate { get; set; } = 0;
         public decimal BuyingPrice { get; set; } = 0;
+        public string? CategoryId { get; set; }
     }
 }
