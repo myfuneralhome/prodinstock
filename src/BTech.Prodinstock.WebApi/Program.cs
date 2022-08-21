@@ -26,7 +26,7 @@ builder.Services.AddRepositories();
 builder.Services.AddQueries();
 builder.Services.TryAddScoped<ProductCreation>();
 builder.Services.TryAddScoped<CategoryCreation>();
-builder.Services.TryAddScoped<ListProducts>();
+builder.Services.TryAddScoped<SupplierCreation>();
 
 var app = builder.Build();
 
