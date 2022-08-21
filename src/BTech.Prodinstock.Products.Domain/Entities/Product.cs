@@ -11,5 +11,6 @@
         public decimal SalePrice { get; set; }
         public decimal VATRate { get; set; }
         public decimal BuyingPrice { get; set; }
+        public string? CategoryId { get; set; }
     }
 }

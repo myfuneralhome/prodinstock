@@ -1,4 +1,6 @@
-﻿using BTech.Prodinstock.Products.Domain;
+﻿using BTech.Prodinstock.Infrastructure.Queries;
+using BTech.Prodinstock.Products.Domain;
+using BTech.Prodinstock.Products.Domain.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -10,6 +12,13 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef
         {
             services.TryAddScoped(typeof(IWriteRepository<>), typeof(EfRepository<>));
             services.TryAddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+
+            return services;
+        }
+
+        public static IServiceCollection AddQueries(this IServiceCollection services)
+        {
+            services.TryAddScoped(typeof(IQueryHandler<ListCategoriesWithProductCount, ExistingCategory[]>), typeof(ListCategoriesWithProductCountHandler));
 
             return services;
         }
