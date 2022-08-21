@@ -37,6 +37,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
                 product.NumberInStock,
                 product.SalePrice,
                 product.VATRate,
+                product.AccountingAccountId,
                 product.BuyingPrice));
 
             if (commandResult.IsFullSuccess())
@@ -69,5 +70,6 @@ namespace BTech.Prodinstock.WebApi.Controllers
         public decimal BuyingPrice { get; set; } = 0;
         public string? CategoryId { get; set; }
         public string? SupplierId { get; set; }
+        public int? AccountingAccountId { get; set; }
     }
 }
