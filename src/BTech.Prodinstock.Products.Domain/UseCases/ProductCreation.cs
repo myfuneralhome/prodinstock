@@ -8,18 +8,21 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
     {
 
         private readonly IWriteRepository<Product> _writeRepository;
+        private readonly IReadRepository<Category> _categoryRepository;
 
         public ProductCreation(
-            IWriteRepository<Product> writeRepository
+            IWriteRepository<Product> writeRepository,
+            IReadRepository<Category> categoryRepository
             )
         {
             _writeRepository = writeRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<CommandResult> ExecuteAsync(NewProduct newProduct)
         {
             CommandResult commandResult =
-                new(CanExecute(newProduct));
+                new(await CanExecuteAsync(newProduct));
 
             if (!commandResult.IsFullSuccess())
             {
@@ -35,7 +38,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 Name = newProduct.Name,
                 NumberInStock = newProduct.NumberInStock,
                 SalePrice = newProduct.SalePrice,
-                VATRate = newProduct.VATRate
+                VATRate = newProduct.VATRate,
+                CategoryId = newProduct.CategoryId
             };
 
             await _writeRepository.AddAsync(product);
@@ -43,7 +47,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
             return commandResult;
         }
 
-        private IReadOnlyList<string> CanExecute(NewProduct newProduct)
+        private async Task<IReadOnlyList<string>> CanExecuteAsync(NewProduct newProduct)
         {
             var errors = new List<string>();
 
@@ -67,11 +71,18 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 errors.Add("The sale price is lower than the buying price.");
             }
 
+            if(newProduct.CategoryId != null
+                && !(await _categoryRepository.AnyAsync(c => c.Id == newProduct.CategoryId)))
+            {
+                errors.Add("The category does not exist.");
+            }
+
             return errors;
         }
     }
 
     public sealed record NewProduct(
+        string? CategoryId,
         string Name,
         string Description,
         short NumberInStock,

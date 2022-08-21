@@ -9,18 +9,21 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
     {
 
         private readonly IWriteRepository<Category> _writeRepository;
+        private readonly IReadRepository<Category> _readRepository;
 
         public CategoryCreation(
-            IWriteRepository<Category> writeRepository
+            IWriteRepository<Category> writeRepository,
+            IReadRepository<Category> readRepository
             )
         {
             _writeRepository = writeRepository;
+            _readRepository = readRepository;
         }
 
         public async Task<CommandResult> ExecuteAsync(NewCategory newCategory)
         {
             CommandResult commandResult =
-                new(CanExecute(newCategory));
+                new(await CanExecuteAsync(newCategory));
 
             if (!commandResult.IsFullSuccess())
             {
@@ -38,13 +41,19 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
             return commandResult;
         }
 
-        private IReadOnlyList<string> CanExecute(NewCategory newCategory)
+        private async Task<IReadOnlyList<string>> CanExecuteAsync(NewCategory newCategory)
         {
             var errors = new List<string>();
 
             if(string.IsNullOrWhiteSpace(newCategory.Name))
             {
                 errors.Add("A name is mandatory.");
+            }
+
+            if (newCategory.Name != null 
+                && await _readRepository.AnyAsync(c => c.Name == newCategory.Name))
+            {
+                errors.Add("This name has already been taken for another existing category.");
             }
 
             return errors;
