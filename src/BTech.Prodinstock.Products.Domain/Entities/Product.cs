@@ -13,5 +13,7 @@
         public decimal BuyingPrice { get; set; }
         public string? CategoryId { get; set; }
         public string? SupplierId { get; set; }
+        public Category? Category { get; set; }
+        public Supplier? Supplier { get; set; }
     }
 }
