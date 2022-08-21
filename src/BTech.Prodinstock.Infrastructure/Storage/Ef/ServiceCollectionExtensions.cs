@@ -21,6 +21,7 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef
         {
             services.TryAddScoped<ListProducts>();
             services.TryAddScoped(typeof(IQueryHandler<ListCategoriesWithProductCount, ExistingCategory[]>), typeof(ListCategoriesWithProductCountHandler));
+            services.TryAddScoped(typeof(IQueryHandler<ListSuppliers, ExistingSupplier[]>), typeof(ListSuppliersHandler));
 
             return services;
         }
