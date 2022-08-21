@@ -12,6 +12,7 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings
             builder.Property(d => d.Id).ValueGeneratedNever();
 
             builder.HasOne<Category>().WithMany(c => c.Products).HasForeignKey(c => c.CategoryId).OnDelete(DeleteBehavior.SetNull);
+            builder.HasOne<Supplier>().WithMany(c => c.Products).HasForeignKey(c => c.SupplierId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef
 
         public static IServiceCollection AddQueries(this IServiceCollection services)
         {
+            services.TryAddScoped<ListProducts>();
             services.TryAddScoped(typeof(IQueryHandler<ListCategoriesWithProductCount, ExistingCategory[]>), typeof(ListCategoriesWithProductCountHandler));
 
             return services;
