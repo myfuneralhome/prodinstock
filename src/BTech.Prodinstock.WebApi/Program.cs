@@ -38,11 +38,6 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
-
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins(app.Configuration.GetSection("CORS:AllowedOrigins").GetChildren().Select(v => v.Value).ToArray()));
 
 app.MapControllers();
