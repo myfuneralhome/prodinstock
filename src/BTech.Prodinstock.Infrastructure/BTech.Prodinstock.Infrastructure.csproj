@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,13 +13,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pdf\template.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Pdf\template.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BTech.Prodinstock.Products.Domain\BTech.Prodinstock.Products.Domain.csproj" />
   </ItemGroup>
 
-
 	<ItemGroup>
+		<PackageReference Include="Handlebars.Net" Version="2.1.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.5" />
+		<PackageReference Include="QuestPDF" Version="2022.8.2" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>BTech.Prodinstock.Products.UnitTests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
 </Project>
