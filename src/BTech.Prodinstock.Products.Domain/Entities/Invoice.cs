@@ -1,6 +1,4 @@
-﻿using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
-
-namespace BTech.Prodinstock.Products.Domain.Entities
+﻿namespace BTech.Prodinstock.Products.Domain.Entities
 {
     public sealed class Invoice
     {
@@ -9,6 +7,9 @@ namespace BTech.Prodinstock.Products.Domain.Entities
         public string? Number { get; set; }
         public DateOnly CreationDate { get; set; }
         public InvoiceState State { get; set; }
-        public Buyer Buyer { get; set; } = null!;
+        public string? BuyerFullName { get; set; }
+        public PostalAddress? BuyerPostalAddress { get; set; }
+
+        public ICollection<InvoiceStateHistory> InvoiceStateHistories { get; set; } = null!;
     }
 }

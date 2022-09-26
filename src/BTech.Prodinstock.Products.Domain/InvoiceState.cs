@@ -2,6 +2,7 @@
 {
     public enum InvoiceState
     {
-        Draft = 0
+        Draft = 0,
+        Validated = 1,
     }
 }

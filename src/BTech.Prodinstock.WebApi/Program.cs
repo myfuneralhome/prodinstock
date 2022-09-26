@@ -1,3 +1,4 @@
+using BTech.Prodinstock.Infrastructure;
 using BTech.Prodinstock.Infrastructure.Storage.Ef;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ builder.Services.AddQueries();
 builder.Services.TryAddScoped<ProductCreation>();
 builder.Services.TryAddScoped<CategoryCreation>();
 builder.Services.TryAddScoped<SupplierCreation>();
+builder.Services.TryAddScoped<InvoiceCreation>();
 
 var app = builder.Build();
 
