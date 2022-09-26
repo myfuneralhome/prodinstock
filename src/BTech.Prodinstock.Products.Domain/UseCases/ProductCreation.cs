@@ -91,6 +91,12 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 errors.Add("The accounting account does not exist.");
             }
 
+            if (newProduct.SupplierId != null
+                && !(await _supplierRepository.AnyAsync(c => c.Id == newProduct.SupplierId)))
+            {
+                errors.Add("The supplier does not exist.");
+            }
+
             return errors;
         }
     }
