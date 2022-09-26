@@ -1,10 +1,10 @@
 ﻿using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Infrastructure.Queries;
+using BTech.Prodinstock.Infrastructure.Storage.Ef;
 using BTech.Prodinstock.Products.Domain.Queries;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace BTech.Prodinstock.Infrastructure.Storage.Ef
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {

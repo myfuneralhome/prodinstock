@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UseCases\Invoices\InvoiceNumberGenerator.cs" />
+    <Compile Remove="UseCases\Invoices\InvoiceUpdating.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BTech.Prodinstock.Core\BTech.Prodinstock.Core.csproj" />
   </ItemGroup>
 

@@ -11,8 +11,9 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings
             builder.HasKey(i => i.Id);
             builder.Property(i => i.Id).ValueGeneratedNever();
 
-            builder.OwnsOne(i => i.Buyer);
-            builder.OwnsOne(i => i.Buyer.PostalAddress);
+            builder.HasMany(i => i.InvoiceStateHistories).WithOne().HasForeignKey(ish => ish.InvoiceId);
+
+            builder.OwnsOne(i => i.BuyerPostalAddress);
         }
     }
 }

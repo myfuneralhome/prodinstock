@@ -3,8 +3,8 @@
 namespace BTech.Prodinstock.Products.Domain
 {
     public record PostalAddress(
-        [property: Required] string City,
-        [property: Required] string Street,
-        [property: Required] string PostalCode)
+        string City,
+        string Street,
+        string PostalCode)
     { }
 }

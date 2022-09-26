@@ -31,7 +31,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 Id = Guid.NewGuid().ToString(),
                 Name = newInvoice.Name,
                 CreationDate = DateOnly.FromDateTime(DateTime.UtcNow),
-                Buyer = newInvoice.Buyer,
+                BuyerFullName = newInvoice.Buyer.FullName,
+                BuyerPostalAddress = newInvoice.Buyer.PostalAddress,
                 State = InvoiceState.Draft
             };
 
@@ -66,8 +67,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
     }
 
     public sealed record NewInvoice(
-        [property: Required] string Name,
-        [property: Required] Buyer Buyer
+        string Name,
+        Buyer Buyer
         )
     { }
 }
