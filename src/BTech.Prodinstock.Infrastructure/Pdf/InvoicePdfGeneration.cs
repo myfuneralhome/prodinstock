@@ -1,5 +1,4 @@
-﻿using BTech.Prodinstock.Core;
-using BTech.Prodinstock.Prodicts.Domain;
+﻿using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 using QuestPDF.Fluent;
 
 namespace BTech.Prodinstock.Infrastructure.Pdf
@@ -9,12 +8,11 @@ namespace BTech.Prodinstock.Infrastructure.Pdf
     {
         public void Generate(
             InvoiceDocument invoiceDocument,
-            Stream stream)
+            Stream streamUsedToGenerate)
         {
-            var model = InvoiceDocumentDataSource.GetInvoiceDetails();
-            var document = new InvoicePdfDocument(model);
+            var document = new InvoicePdfDocument(invoiceDocument);
 
-            document.GeneratePdf(stream);
+            document.GeneratePdf(streamUsedToGenerate);
         }
     }
 }

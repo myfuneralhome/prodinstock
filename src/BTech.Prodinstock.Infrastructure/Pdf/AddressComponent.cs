@@ -1,4 +1,4 @@
-﻿using BTech.Prodinstock.Prodicts.Domain;
+﻿using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
