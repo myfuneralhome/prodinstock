@@ -29,6 +29,8 @@ builder.Services.TryAddScoped<CategoryCreation>();
 builder.Services.TryAddScoped<SupplierCreation>();
 builder.Services.TryAddScoped<InvoiceCreation>();
 
+builder.Services.AddInvoicePdfGeneration();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

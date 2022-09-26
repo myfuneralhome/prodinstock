@@ -30,7 +30,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = newInvoice.Name,
-                CreationDate = DateOnly.FromDateTime(DateTime.UtcNow),
+                CreationDate = DateTime.UtcNow,
                 BuyerFullName = newInvoice.Buyer.FullName,
                 BuyerPostalAddress = newInvoice.Buyer.PostalAddress,
                 State = InvoiceState.Draft

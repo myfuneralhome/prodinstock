@@ -1,7 +1,7 @@
-﻿using BTech.Prodinstock.Prodicts.Domain;
+﻿using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 using QuestPDF.Helpers;
 
-namespace BTech.Prodinstock.Infrastructure.Pdf
+namespace BTech.Prodinstock.Products.UnitTests
 {
     public static class InvoiceDocumentDataSource
     {
@@ -14,18 +14,21 @@ namespace BTech.Prodinstock.Infrastructure.Pdf
                 .Select(i => GenerateRandomOrderItem())
                 .ToList();
 
-            return new InvoiceDocument
+            var invoiceDocument = new InvoiceDocument
             {
-                InvoiceNumber = Random.Next(1_000, 10_000),
+                InvoiceNumber = "F" + Random.Next(1_000, 10_000),
                 IssueDate = DateTime.Now,
                 DueDate = DateTime.Now + TimeSpan.FromDays(14),
 
                 SellerAddress = GenerateRandomAddress(),
                 CustomerAddress = GenerateRandomAddress(),
 
-                Items = items,
                 Comments = Placeholders.Paragraph()
             };
+
+            invoiceDocument.Items.AddRange(items);
+
+            return invoiceDocument;
         }
 
         private static OrderItem GenerateRandomOrderItem()
@@ -40,15 +43,13 @@ namespace BTech.Prodinstock.Infrastructure.Pdf
 
         private static Address GenerateRandomAddress()
         {
-            return new Address
-            {
-                CompanyName = Placeholders.Name(),
-                Street = Placeholders.Label(),
-                City = Placeholders.Label(),
-                State = Placeholders.Label(),
-                Email = Placeholders.Email(),
-                Phone = Placeholders.PhoneNumber()
-            };
+            return new Address(
+                Placeholders.Name(),
+                Placeholders.Label(),
+                Placeholders.Label(),
+                Placeholders.Label(),
+                Placeholders.Email(),
+                Placeholders.PhoneNumber());
         }
     }
 }

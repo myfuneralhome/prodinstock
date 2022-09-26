@@ -1,18 +1,19 @@
 using BTech.Prodinstock.Infrastructure.Pdf;
-using BTech.Prodinstock.Prodicts.Domain;
+using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 
 namespace BTech.Prodinstock.Products.UnitTests
 {
-    public class UnitTest1
+    public class InvoicePdfGenerationTest
     {
         [Fact]
-        public void Test1()
+        public void Generate()
         {
             var invoicePdfGeneration = new InvoicePdfGeneration();
             using (var stream = new MemoryStream())
             {
+                invoicePdfGeneration.Generate(new InvoiceDocument(), stream);
+                Assert.NotNull(stream);
             }
-            invoicePdfGeneration.Generate(new InvoiceDocument(), stream));
         }
     }
 }
