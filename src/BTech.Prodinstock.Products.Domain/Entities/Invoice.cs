@@ -11,5 +11,7 @@
         public PostalAddress? BuyerPostalAddress { get; set; }
 
         public ICollection<InvoiceStateHistory> InvoiceStateHistories { get; set; } = null!;
+
+        public ICollection<OrderProduct> OrderProducts { get; set; } = null!;
     }
 }
