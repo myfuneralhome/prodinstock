@@ -47,14 +47,24 @@ namespace BTech.Prodinstock.Products.Domain.UseCases.OrderProducts
         {
             var errors = new List<string>();
 
-            if (!await _invoicesStorage.AnyAsync(f => f.Id == newOrderProduct.InvoiceId))
+            var invoice = await _invoicesStorage.GetAsync(newOrderProduct.InvoiceId);
+            if (invoice is null)
             {
                 errors.Add("The invoice does not exist.");
+                return errors;
             }
 
-            if (!await _productStorage.AnyAsync(p => p.Id == newOrderProduct.ProductId))
+            var product = await _productStorage.GetAsync(newOrderProduct.ProductId);
+            if (product is null)
             {
                 errors.Add("The product does not exist.");
+                return errors;
+            }
+
+            if (invoice != null 
+                && invoice.State == InvoiceState.Validated)
+            {
+                errors.Add("The invoice have been validated. You can not add or update order product.");
             }
 
             if (string.IsNullOrWhiteSpace(newOrderProduct.ProductName)
