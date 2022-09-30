@@ -1,6 +1,7 @@
 using BTech.Prodinstock.Infrastructure;
 using BTech.Prodinstock.Infrastructure.Storage.Ef;
 using BTech.Prodinstock.Products.Domain.UseCases;
+using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -28,6 +29,8 @@ builder.Services.TryAddScoped<ProductCreation>();
 builder.Services.TryAddScoped<CategoryCreation>();
 builder.Services.TryAddScoped<SupplierCreation>();
 builder.Services.TryAddScoped<InvoiceCreation>();
+builder.Services.TryAddScoped<InvoiceValidation>();
+builder.Services.TryAddScoped<InvoiceNumberGenerator>();
 
 builder.Services.AddInvoicePdfGeneration();
 

@@ -25,6 +25,12 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(TEntity entity)
+        {
+            _context.Set<TEntity>().Update(entity);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>();
@@ -67,5 +73,6 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef
         {
             return await _context.Set<TEntity>().ToListAsync();
         }
+
     }
 }

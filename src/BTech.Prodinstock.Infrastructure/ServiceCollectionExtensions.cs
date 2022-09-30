@@ -2,6 +2,7 @@
 using BTech.Prodinstock.Infrastructure.Pdf;
 using BTech.Prodinstock.Infrastructure.Queries;
 using BTech.Prodinstock.Infrastructure.Storage.Ef;
+using BTech.Prodinstock.Infrastructure.Storage.Ef.Queries;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -26,6 +27,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddScoped(typeof(IQueryHandler<ListProducts, ExistingProduct[]>), typeof(ListProductsHandler));
             services.TryAddScoped(typeof(IQueryHandler<SearchAccountingAccount, ExistingAccountingAccount[]>), typeof(SearchAccountingAccountHandler));
             services.TryAddScoped(typeof(IQueryHandler<ListInvoices, ExistingInvoice[]>), typeof(ListInvoicesHandler));
+            services.TryAddScoped(typeof(IQueryHandler<ValidatedInvoicesInASpecificYearSearch, ValidatedInvoicesInASpecificYearCount>),
+                typeof(ValidatedInvoicesInASpecificYearCountHandler));
 
             return services;
         }
