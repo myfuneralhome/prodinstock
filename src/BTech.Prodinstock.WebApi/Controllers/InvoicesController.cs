@@ -14,15 +14,18 @@ namespace BTech.Prodinstock.WebApi.Controllers
     {
         private readonly InvoiceCreation _invoiceCreation;
         private readonly InvoiceFileGenerator _invoiceFileGenerator;
+        private readonly InvoiceValidation _invoiceValidation;
         private readonly IQueryHandler<ListInvoices, ExistingInvoice[]> _listInvoices;
 
         public InvoicesController(
             InvoiceCreation invoiceCreation,
             InvoiceFileGenerator invoiceFileGenerator,
+            InvoiceValidation invoiceValidating,
             IQueryHandler<ListInvoices, ExistingInvoice[]> listInvoices)
         {
             _invoiceCreation = invoiceCreation;
             _invoiceFileGenerator = invoiceFileGenerator;
+            _invoiceValidation = invoiceValidating;
             _listInvoices = listInvoices;
         }
 
@@ -31,6 +34,22 @@ namespace BTech.Prodinstock.WebApi.Controllers
             [Required] NewInvoice newInvoice)
         {
             var commandResult = await _invoiceCreation.ExecuteAsync(newInvoice);
+
+            if (commandResult.IsFullSuccess())
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(commandResult.Errors);
+            }
+        }
+
+        [HttpPost("{invoiceId}/validate")]
+        public async Task<IActionResult> Validate(
+            [Required] string invoiceId)
+        {
+            var commandResult = await _invoiceValidation.ValidateAsync(invoiceId);
 
             if (commandResult.IsFullSuccess())
             {

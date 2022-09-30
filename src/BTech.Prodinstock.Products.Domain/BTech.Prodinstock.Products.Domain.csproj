@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="UseCases\Invoices\InvoiceNumberGenerator.cs" />
     <Compile Remove="UseCases\Invoices\InvoiceUpdating.cs" />
   </ItemGroup>
 

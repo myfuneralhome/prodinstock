@@ -7,7 +7,6 @@ namespace BTech.Prodinstock.Products.Domain.Queries
     {
     }
 
-
     public sealed class ExistingCategory
     {
         public string? Id { get; set; }
