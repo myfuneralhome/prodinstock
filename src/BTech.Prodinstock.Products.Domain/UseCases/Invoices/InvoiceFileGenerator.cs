@@ -5,8 +5,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases.Invoices
 {
     public sealed class InvoiceFileGenerator
     {
-        private IReadRepository<Invoice> _readRepository;
-        private IInvoiceFileGeneration _invoiceFileGeneration;
+        private readonly IReadRepository<Invoice> _readRepository;
+        private readonly IInvoiceFileGeneration _invoiceFileGeneration;
 
         public InvoiceFileGenerator(
             IReadRepository<Invoice> readRepository,
@@ -20,7 +20,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases.Invoices
         {
             var invoice = await _readRepository.GetAsync(invoiceId);
 
-            if(invoice is null)
+            if (invoice is null)
             {
                 return false;
             }
@@ -41,6 +41,16 @@ namespace BTech.Prodinstock.Products.Domain.UseCases.Invoices
                     invoice.BuyerPostalAddress?.City ?? "N/A",
                     invoice.BuyerPostalAddress?.PostalCode ?? "N/A")
             };
+
+            foreach (var orderProductsItem in invoice.OrderProducts)
+            {
+                invoiceDocument.Items.Add(new OrderItem()
+                {
+                    Name = orderProductsItem.ProductName,
+                    Price = orderProductsItem.Price,
+                    Quantity = orderProductsItem.Quantity
+                });
+            }
 
             _invoiceFileGeneration.Generate(invoiceDocument, fileHandler);
 

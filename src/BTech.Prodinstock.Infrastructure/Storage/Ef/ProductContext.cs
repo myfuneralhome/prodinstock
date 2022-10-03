@@ -19,6 +19,10 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
             modelBuilder.ApplyConfiguration(new InvoiceMapping());
+            modelBuilder.ApplyConfiguration(new InvoiceStateHistoryMapping());
+            modelBuilder.ApplyConfiguration(new SupplierMapping());
+            modelBuilder.ApplyConfiguration(new ProductMapping());
+            modelBuilder.ApplyConfiguration(new OrderProductMapping());
         }
     }
 }
