@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BTech.Prodinstock.Products.Domain\BTech.Prodinstock.Products.Domain.csproj" />
-    <ProjectReference Include="..\Prodinstock.Localization\Prodinstock.Localization.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
