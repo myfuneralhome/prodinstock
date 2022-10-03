@@ -42,5 +42,4 @@ namespace BTech.Prodinstock.Infrastructure.Queries
             return products;
         }
     }
-
 }

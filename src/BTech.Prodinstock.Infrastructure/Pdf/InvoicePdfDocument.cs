@@ -3,6 +3,7 @@ using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Resources;
 
 namespace BTech.Prodinstock.Infrastructure.Pdf
 {
@@ -79,7 +80,7 @@ namespace BTech.Prodinstock.Infrastructure.Pdf
                 column.Item().Element(ComposeTable);
 
                 var totalPrice = Model.Items.Sum(x => x.Price * x.Quantity);
-                column.Item().AlignRight().Text($"Grand total: {totalPrice}$").FontSize(14);
+                column.Item().AlignRight().Text($"Grand total: {totalPrice}€").FontSize(14);
 
                 if (!string.IsNullOrWhiteSpace(Model.Comments))
                     column.Item().PaddingTop(25).Element(ComposeComments);
