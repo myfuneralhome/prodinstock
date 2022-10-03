@@ -17,11 +17,12 @@ namespace BTech.Prodinstock.Products.Domain.UseCases.Invoices
             int currentYear = DateTime.Now.Year;
 
             var invoiceCount = await _query.HandleAsync(new ValidatedInvoicesInASpecificYearSearch() { Year = currentYear });
+            var newInvoiceNumber = invoiceCount.Value + 1;
 
             return 
                 $"{currentYear}" +
                 $"-" +
-                $"{invoiceCount.Value.ToString().PadLeft(4, '0')}";
+                $"{newInvoiceNumber.ToString().PadLeft(4, '0')}";
         }
     }
 }
