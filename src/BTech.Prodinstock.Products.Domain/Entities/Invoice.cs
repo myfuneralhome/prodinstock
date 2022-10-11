@@ -13,5 +13,6 @@
         public ICollection<InvoiceStateHistory> InvoiceStateHistories { get; set; } = null!;
 
         public ICollection<OrderProduct> OrderProducts { get; set; } = null!;
+        public string UserCompanyId { get; set; } = null!;
     }
 }

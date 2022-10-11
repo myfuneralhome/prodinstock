@@ -1,7 +1,5 @@
-﻿
-using BTech.Prodinstock.Core;
+﻿using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Products.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace BTech.Prodinstock.Products.Domain.UseCases
 {
@@ -33,7 +31,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
             var supplier = new Supplier()
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = newSupplier.Name
+                Name = newSupplier.Name,
+                UserCompanyId = newSupplier.Owner.UserId
             };
 
             await _writeRepository.AddAsync(supplier);
@@ -60,8 +59,9 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
         }
     }
 
-    public sealed class NewSupplier {
-        [Required]
-        public string Name { get; set; } = null!;
+    public sealed record NewSupplier(
+        string Name,
+        IUserId Owner)
+    { 
     }
 }

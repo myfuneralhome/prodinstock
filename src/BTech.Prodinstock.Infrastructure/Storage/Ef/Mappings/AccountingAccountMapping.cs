@@ -10,6 +10,8 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings
         {
             builder.HasKey(aa => aa.Id);
             builder.Property(aa => aa.Id).ValueGeneratedNever();
+
+            builder.HasOne<UserCompany>().WithMany().HasForeignKey(aa => aa.UserCompanyId);
         }
     }
 }

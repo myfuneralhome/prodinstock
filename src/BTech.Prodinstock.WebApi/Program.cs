@@ -1,8 +1,10 @@
 using BTech.Prodinstock.DependencyInjection;
 using BTech.Prodinstock.Infrastructure.Storage.Ef;
+using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 using BTech.Prodinstock.Products.Domain.UseCases.OrderProducts;
+using BTech.Prodinstock.WebApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -35,6 +37,8 @@ builder.Services.TryAddScoped<InvoiceValidation>();
 builder.Services.TryAddScoped<InvoiceNumberGenerator>();
 
 builder.Services.AddInvoicePdfGeneration();
+
+builder.Services.TryAddScoped<ICurrentUserProvider, FakeUserProvider>();
 
 var app = builder.Build();
 

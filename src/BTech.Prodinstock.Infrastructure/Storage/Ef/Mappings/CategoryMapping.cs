@@ -8,8 +8,12 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasKey(d => d.Id);
-            builder.Property(d => d.Id).ValueGeneratedNever();
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id).ValueGeneratedNever();
+
+            builder.Property(c => c.Name).IsRequired();
+
+            builder.HasOne<UserCompany>().WithMany().HasForeignKey(c => c.UserCompanyId);
         }
     }
 }

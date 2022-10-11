@@ -1,4 +1,5 @@
 using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.AspNetCore.Mvc;
@@ -12,20 +13,27 @@ namespace BTech.Prodinstock.WebApi.Controllers
     {
         private readonly SupplierCreation _supplierCreation;
         private readonly IQueryHandler<ListSuppliers, ExistingSupplier[]> _listSuppliers;
+        private readonly ICurrentUserProvider _currentUserProvider;
 
         public SuppliersController(
             IQueryHandler<ListSuppliers, ExistingSupplier[]> listSuppliers,
-            SupplierCreation supplierCreation)
+            SupplierCreation supplierCreation,
+            ICurrentUserProvider currentUserProvider)
         {
             _listSuppliers = listSuppliers;
             _supplierCreation = supplierCreation;
+            _currentUserProvider = currentUserProvider;
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(
-            [Required] NewSupplier newSupplier)
+            [Required] SupplierToAdd newSupplier)
         {
-            var commandResult = await _supplierCreation.ExecuteAsync(newSupplier);
+            var commandResult = await _supplierCreation.ExecuteAsync(
+                new NewSupplier(
+                    newSupplier.Name,
+                    _currentUserProvider.Get())
+                );
 
             if (commandResult.IsFullSuccess())
             {
@@ -41,6 +49,12 @@ namespace BTech.Prodinstock.WebApi.Controllers
         public async Task<ExistingSupplier[]> List()
         {
             return await _listSuppliers.HandleAsync(new ListSuppliers());
+        }
+
+        public sealed class SupplierToAdd
+        {
+            [Required]
+            public string Name { get; set; } = null!;
         }
     }
 }

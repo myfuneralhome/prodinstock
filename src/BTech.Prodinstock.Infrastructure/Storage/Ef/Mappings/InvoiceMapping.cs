@@ -16,6 +16,8 @@ namespace BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings
             builder.Navigation(i => i.OrderProducts).AutoInclude();
 
             builder.OwnsOne(i => i.BuyerPostalAddress);
+
+            builder.HasOne<UserCompany>().WithMany().HasForeignKey(i => i.UserCompanyId);
         }
     }
 }

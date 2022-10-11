@@ -6,5 +6,6 @@
         public string Name { get; set; } = null!;
 
         public List<Product> Products { get; set; } = null!;
+        public string UserCompanyId { get; set; } = null!;
     }
 }
