@@ -1,7 +1,8 @@
-﻿namespace BTech.Prodinstock.Products.Domain
+namespace BTech.Prodinstock.Products.Domain
 {
     public record Owner(
-        string UserId)
-        : IUserId
+        string UserId
+        , string UserCompanyId)
+        : IUser
     { }
 }

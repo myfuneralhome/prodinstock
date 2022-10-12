@@ -1,4 +1,5 @@
 using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : CommonController
     {
         private readonly CategoryCreation _categoryCreation;
 
@@ -16,7 +17,9 @@ namespace BTech.Prodinstock.WebApi.Controllers
 
         public CategoriesController(
             IQueryHandler<ListCategoriesWithProductCount, ExistingCategory[]> listCategoriesWithProductCount
-            , CategoryCreation categoryCreation)
+            , CategoryCreation categoryCreation,
+            ICurrentUserProvider currentUserProvider)
+            : base(currentUserProvider)
         {
             _listCategoriesWithProductCount = listCategoriesWithProductCount;
             _categoryCreation = categoryCreation;
@@ -24,9 +27,12 @@ namespace BTech.Prodinstock.WebApi.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create(
-            [Required] NewCategory newCategory)
+            [Required] CategoryToAdd newCategory)
         {
-            var commandResult = await _categoryCreation.ExecuteAsync(newCategory);
+            var commandResult = await _categoryCreation.ExecuteAsync(
+                new NewCategory(
+                    newCategory.Name
+                    , await CurrentUserProvider.Get()));
 
             if (commandResult.IsFullSuccess())
             {
@@ -43,5 +49,11 @@ namespace BTech.Prodinstock.WebApi.Controllers
         {
             return await _listCategoriesWithProductCount.HandleAsync(new ListCategoriesWithProductCount());
         }
+    }
+
+    public sealed class CategoryToAdd
+    {
+        [Required]
+        public string Name { get; set; } = null!;
     }
 }

@@ -1,8 +1,10 @@
-﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Infrastructure;
 using BTech.Prodinstock.Infrastructure.Pdf;
 using BTech.Prodinstock.Infrastructure.Queries;
 using BTech.Prodinstock.Infrastructure.Storage.Ef;
 using BTech.Prodinstock.Infrastructure.Storage.Ef.Queries;
+using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +41,13 @@ namespace BTech.Prodinstock.DependencyInjection
         {
             services.TryAddScoped<InvoiceFileGenerator>();
             services.TryAddScoped<IInvoiceFileGeneration, InvoicePdfGeneration>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddUserProvider(this IServiceCollection services)
+        {
+            services.TryAddScoped<ICurrentUserProvider, FakeUserProvider>();
 
             return services;
         }

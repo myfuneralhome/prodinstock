@@ -1,11 +1,10 @@
-﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Products.Domain.Entities;
 
 namespace BTech.Prodinstock.Products.Domain.UseCases
 {
     public sealed class SupplierCreation
     {
-
         private readonly IWriteRepository<Supplier> _writeRepository;
         private readonly IReadRepository<Supplier> _readRepository;
 
@@ -32,7 +31,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = newSupplier.Name,
-                UserCompanyId = newSupplier.Owner.UserId
+                UserCompanyId = newSupplier.Owner.UserCompanyId
             };
 
             await _writeRepository.AddAsync(supplier);
@@ -44,12 +43,12 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
         {
             var errors = new List<string>();
 
-            if(string.IsNullOrWhiteSpace(newSupplier.Name))
+            if (string.IsNullOrWhiteSpace(newSupplier.Name))
             {
                 errors.Add("A name is mandatory.");
             }
 
-            if (newSupplier.Name != null 
+            if (newSupplier.Name != null
                 && await _readRepository.AnyAsync(c => c.Name == newSupplier.Name))
             {
                 errors.Add("This name has already been taken for another existing supplier.");
@@ -61,7 +60,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
 
     public sealed record NewSupplier(
         string Name,
-        IUserId Owner)
-    { 
+        IUser Owner)
+    {
     }
 }

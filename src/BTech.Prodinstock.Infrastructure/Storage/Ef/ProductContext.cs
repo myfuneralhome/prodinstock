@@ -1,4 +1,4 @@
-﻿using BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings;
+using BTech.Prodinstock.Infrastructure.Storage.Ef.Mappings;
 using BTech.Prodinstock.Products.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

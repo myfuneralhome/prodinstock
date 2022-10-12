@@ -35,10 +35,11 @@ builder.Services.TryAddScoped<OrderProductCreation>();
 builder.Services.TryAddScoped<InvoiceCreation>();
 builder.Services.TryAddScoped<InvoiceValidation>();
 builder.Services.TryAddScoped<InvoiceNumberGenerator>();
+builder.Services.TryAddScoped<UserCompanyCreation>();
 
 builder.Services.AddInvoicePdfGeneration();
 
-builder.Services.TryAddScoped<ICurrentUserProvider, FakeUserProvider>();
+builder.Services.AddUserProvider();
 
 var app = builder.Build();
 
