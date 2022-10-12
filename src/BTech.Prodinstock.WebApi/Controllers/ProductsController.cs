@@ -41,7 +41,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
                 product.VATRate,
                 product.AccountingAccountId,
                 product.BuyingPrice,
-                CurrentUserProvider.Get()
+                await CurrentUserProvider.Get()
                 ));
 
             if (commandResult.IsFullSuccess())

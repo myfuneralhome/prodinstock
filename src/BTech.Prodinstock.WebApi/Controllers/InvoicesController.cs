@@ -41,7 +41,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
                     new Buyer(newInvoice.BuyerFullName,
                         new PostalAddress(newInvoice.BuyerCity, newInvoice.BuyerStreet, newInvoice.BuyerPostalCode)
                         ),
-                    CurrentUserProvider.Get()
+                    await CurrentUserProvider.Get()
                     )
                 );
 

@@ -33,7 +33,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
             var commandResult = await _supplierCreation.ExecuteAsync(
                 new NewSupplier(
                     newSupplier.Name,
-                    CurrentUserProvider.Get())
+                    await CurrentUserProvider.Get())
                 );
 
             if (commandResult.IsFullSuccess())

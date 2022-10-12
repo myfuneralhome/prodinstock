@@ -32,7 +32,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
             var commandResult = await _categoryCreation.ExecuteAsync(
                 new NewCategory(
                     newCategory.Name
-                    , CurrentUserProvider.Get()));
+                    , await CurrentUserProvider.Get()));
 
             if (commandResult.IsFullSuccess())
             {

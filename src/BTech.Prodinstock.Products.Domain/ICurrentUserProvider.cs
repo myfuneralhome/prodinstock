@@ -1,7 +1,7 @@
-﻿namespace BTech.Prodinstock.Products.Domain
+namespace BTech.Prodinstock.Products.Domain
 {
     public interface ICurrentUserProvider
     {
-        public IUser Get(); 
+        public Task<IUser> Get();
     }
 }
