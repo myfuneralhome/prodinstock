@@ -1,7 +1,6 @@
-﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Products.Domain.Entities;
 using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
-using System.ComponentModel.DataAnnotations;
 
 namespace BTech.Prodinstock.Products.Domain.UseCases
 {
@@ -33,7 +32,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 CreationDate = DateTime.UtcNow,
                 BuyerFullName = newInvoice.Buyer.FullName,
                 BuyerPostalAddress = newInvoice.Buyer.PostalAddress,
-                State = InvoiceState.Draft
+                State = InvoiceState.Draft,
+                UserCompanyId = newInvoice.User.UserCompanyId
             };
 
             await _writeRepository.AddAsync(invoice);
@@ -68,7 +68,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
 
     public sealed record NewInvoice(
         string Name,
-        Buyer Buyer
+        Buyer Buyer,
+        IUser User
         )
     { }
 }

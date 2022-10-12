@@ -1,13 +1,13 @@
-﻿using BTech.Prodinstock.Products.Domain;
+using BTech.Prodinstock.Products.Domain;
 
 namespace BTech.Prodinstock.WebApi
 {
     internal sealed class FakeUserProvider
         : ICurrentUserProvider
     {
-        public IUserId Get()
+        public IUser Get()
         {
-            return new Owner(Guid.NewGuid().ToString());
+            return new Owner(Guid.Empty.ToString(), Guid.Empty.ToString());
         }
     }
 }

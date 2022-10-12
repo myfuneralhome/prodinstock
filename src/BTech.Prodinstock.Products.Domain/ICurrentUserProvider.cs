@@ -2,6 +2,6 @@
 {
     public interface ICurrentUserProvider
     {
-        public IUserId Get(); 
+        public IUser Get(); 
     }
 }

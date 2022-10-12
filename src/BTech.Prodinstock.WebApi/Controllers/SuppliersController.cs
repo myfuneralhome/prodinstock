@@ -9,7 +9,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SuppliersController : ControllerBase
+    public class SuppliersController : CommonController
     {
         private readonly SupplierCreation _supplierCreation;
         private readonly IQueryHandler<ListSuppliers, ExistingSupplier[]> _listSuppliers;
@@ -19,6 +19,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
             IQueryHandler<ListSuppliers, ExistingSupplier[]> listSuppliers,
             SupplierCreation supplierCreation,
             ICurrentUserProvider currentUserProvider)
+            : base(currentUserProvider)
         {
             _listSuppliers = listSuppliers;
             _supplierCreation = supplierCreation;
@@ -32,7 +33,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
             var commandResult = await _supplierCreation.ExecuteAsync(
                 new NewSupplier(
                     newSupplier.Name,
-                    _currentUserProvider.Get())
+                    CurrentUserProvider.Get())
                 );
 
             if (commandResult.IsFullSuccess())

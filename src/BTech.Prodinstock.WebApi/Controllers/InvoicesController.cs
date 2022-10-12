@@ -1,4 +1,5 @@
-﻿using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using BTech.Prodinstock.Products.Domain.UseCases.Invoices;
@@ -7,10 +8,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BTech.Prodinstock.WebApi.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]")]
-    public class InvoicesController : ControllerBase
+    public class InvoicesController : CommonController
     {
         private readonly InvoiceCreation _invoiceCreation;
         private readonly InvoiceFileGenerator _invoiceFileGenerator;
@@ -21,7 +21,9 @@ namespace BTech.Prodinstock.WebApi.Controllers
             InvoiceCreation invoiceCreation,
             InvoiceFileGenerator invoiceFileGenerator,
             InvoiceValidation invoiceValidating,
-            IQueryHandler<ListInvoices, ExistingInvoice[]> listInvoices)
+            IQueryHandler<ListInvoices, ExistingInvoice[]> listInvoices,
+            ICurrentUserProvider currentUserProvider)
+            : base(currentUserProvider)
         {
             _invoiceCreation = invoiceCreation;
             _invoiceFileGenerator = invoiceFileGenerator;
@@ -31,9 +33,17 @@ namespace BTech.Prodinstock.WebApi.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create(
-            [Required] NewInvoice newInvoice)
+            [Required] InvoiceToAdd newInvoice)
         {
-            var commandResult = await _invoiceCreation.ExecuteAsync(newInvoice);
+            var commandResult = await _invoiceCreation.ExecuteAsync(
+                new NewInvoice(
+                    newInvoice.Name,
+                    new Buyer(newInvoice.BuyerFullName,
+                        new PostalAddress(newInvoice.BuyerCity, newInvoice.BuyerStreet, newInvoice.BuyerPostalCode)
+                        ),
+                    CurrentUserProvider.Get()
+                    )
+                );
 
             if (commandResult.IsFullSuccess())
             {
@@ -66,7 +76,7 @@ namespace BTech.Prodinstock.WebApi.Controllers
             [Required] string invoiceId)
         {
             var memoryStream = new MemoryStream();
-            
+
             if (await _invoiceFileGenerator.TryGetAsync(invoiceId, memoryStream))
             {
                 memoryStream.Position = 0;
@@ -83,5 +93,23 @@ namespace BTech.Prodinstock.WebApi.Controllers
         {
             return await _listInvoices.HandleAsync(new ListInvoices());
         }
+    }
+
+    public sealed class InvoiceToAdd
+    {
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string BuyerFullName { get; set; }
+
+        [Required]
+        public string BuyerCity { get; set; }
+
+        [Required]
+        public string BuyerStreet { get; set; }
+
+        [Required]
+        public string BuyerPostalCode { get; set; }
     }
 }

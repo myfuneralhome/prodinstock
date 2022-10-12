@@ -1,4 +1,5 @@
 using BTech.Prodinstock.Core;
+using BTech.Prodinstock.Products.Domain;
 using BTech.Prodinstock.Products.Domain.Queries;
 using BTech.Prodinstock.Products.Domain.UseCases;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +9,8 @@ namespace BTech.Prodinstock.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : CommonController
     {
-
         private readonly ProductCreation _productCreation;
         private readonly IQueryHandler<ListProducts, ExistingProduct[]> _listProducts;
         private readonly ILogger<ProductsController> _logger;
@@ -18,7 +18,9 @@ namespace BTech.Prodinstock.WebApi.Controllers
         public ProductsController(
             ILogger<ProductsController> logger
             , ProductCreation productCreation
-            , IQueryHandler<ListProducts, ExistingProduct[]> listProducts)
+            , IQueryHandler<ListProducts, ExistingProduct[]> listProducts
+            , ICurrentUserProvider currentUserProvider)
+            : base(currentUserProvider)
         {
             _logger = logger;
             _productCreation = productCreation;
@@ -38,7 +40,9 @@ namespace BTech.Prodinstock.WebApi.Controllers
                 product.SalePrice,
                 product.VATRate,
                 product.AccountingAccountId,
-                product.BuyingPrice));
+                product.BuyingPrice,
+                CurrentUserProvider.Get()
+                ));
 
             if (commandResult.IsFullSuccess())
             {
@@ -61,11 +65,13 @@ namespace BTech.Prodinstock.WebApi.Controllers
     {
         [Required]
         public string Name { get; set; } = null!;
+
         public string Description { get; set; } = string.Empty;
         public short NumberInStock { get; set; } = 0;
 
         [Required]
         public decimal SalePrice { get; set; }
+
         public decimal VATRate { get; set; } = 0;
         public decimal BuyingPrice { get; set; } = 0;
         public string? CategoryId { get; set; }

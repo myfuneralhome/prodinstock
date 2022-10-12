@@ -1,7 +1,8 @@
-﻿namespace BTech.Prodinstock.Products.Domain
+namespace BTech.Prodinstock.Products.Domain
 {
-    public interface IUserId
+    public interface IUser
     {
-        public string UserId { get; } 
+        public string UserId { get; }
+        public string UserCompanyId { get; }
     }
 }

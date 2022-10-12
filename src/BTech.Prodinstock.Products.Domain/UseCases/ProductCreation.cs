@@ -1,4 +1,3 @@
-﻿
 using BTech.Prodinstock.Core;
 using BTech.Prodinstock.Products.Domain.Entities;
 
@@ -6,7 +5,6 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
 {
     public sealed class ProductCreation
     {
-
         private readonly IWriteRepository<Product> _writeRepository;
         private readonly IReadRepository<Category> _categoryRepository;
         private readonly IReadRepository<Supplier> _supplierRepository;
@@ -47,7 +45,8 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 VATRate = newProduct.VATRate,
                 CategoryId = newProduct.CategoryId,
                 SupplierId = newProduct.SupplierId,
-                AccountingAccountId = newProduct.AccoutingAccountId
+                AccountingAccountId = newProduct.AccoutingAccountId,
+                UserCompanyId = newProduct.Owner.UserCompanyId
             };
 
             await _writeRepository.AddAsync(product);
@@ -59,7 +58,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
         {
             var errors = new List<string>();
 
-            if(string.IsNullOrWhiteSpace(newProduct.Name))
+            if (string.IsNullOrWhiteSpace(newProduct.Name))
             {
                 errors.Add("A name is mandatory.");
             }
@@ -79,7 +78,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
                 errors.Add("The sale price is lower than the buying price.");
             }
 
-            if(newProduct.CategoryId != null
+            if (newProduct.CategoryId != null
                 && !(await _categoryRepository.AnyAsync(c => c.Id == newProduct.CategoryId)))
             {
                 errors.Add("The category does not exist.");
@@ -110,5 +109,7 @@ namespace BTech.Prodinstock.Products.Domain.UseCases
         decimal SalePrice,
         decimal VATRate,
         int? AccoutingAccountId,
-        decimal BuyingPrice) { }
+        decimal BuyingPrice,
+        IUser Owner)
+    { }
 }
