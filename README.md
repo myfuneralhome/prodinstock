@@ -18,8 +18,8 @@ TODO
 
 ## Technical aspect
 ### How add new migrations on the web api ?
-``dotnet ef migrations add "XXX" --context ProductContext --startup-project .\src\BTech.Prodinstock.WebApi\ --project .\src\BTech.Prodinstock.Infrastructure\``
+``dotnet ef migrations add "XXX" --context ProductContext --startup-project .\src\Prodinstock.WebApi\ --project .\src\Prodinstock.Infrastructure\``
 
 ## Deploy
 To apply database according to the migrations :
-``dotnet ef database update --context ProductContext --startup-project .\src\BTech.Prodinstock.WebApi``
+``dotnet ef database update --context ProductContext --startup-project .\src\Prodinstock.WebApi``
